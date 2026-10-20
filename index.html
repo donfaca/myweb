@@ -1292,7 +1292,7 @@ function go(id, push){
     sec.classList.toggle("active", on); if (btn) btn.setAttribute("aria-expanded", on); if (panel) panel.hidden = !on;
   });
   document.querySelectorAll("nav a[data-open], .nav-news").forEach(a => a.classList.toggle("on", a.dataset.open === id));
-  if (push !== false) { const h = id ? "#" + id : location.pathname + location.search; if ((id ? "#" + id : "") !== location.hash) history.pushState(null, "", h); }
+  if (push !== false && (id ? "#" + id : "") !== location.hash) { try { history.pushState(null, "", id ? "#" + id : location.pathname + location.search); } catch (e) { /* sandboxed preview: no history */ } }
   window.scrollTo({top:0, behavior:"auto"});
 }
 function setOpen(id, open){ go(open ? id : null); }
@@ -1305,7 +1305,7 @@ document.addEventListener("click", e => {
   e.preventDefault(); go(a.dataset.open);
 });
 window.addEventListener("popstate", () => go(location.hash.slice(1), false));
-go(location.hash.slice(1), false);
+try { go(location.hash.slice(1), false); } catch (e) { go(null, false); }
 
 let VISITS = null;
 let VISITS_GC = null;
