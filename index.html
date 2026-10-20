@@ -1137,16 +1137,16 @@ renderPubs();
 
 // Travels: places visited. kind: home | study | work | trip
 // Countries visited (filled green on the map, with labels)
-const VISITED = ["Argentina","Italy","United States of America","Vanuatu","France","Portugal","Spain","Netherlands","Germany","Belgium","Switzerland","Mexico","Bahamas","Puerto Rico","Uruguay","Czechia","Greece","New Zealand","Chile","Brazil"];
-const VIS_ES = { "Argentina":"Argentina","Italy":"Italia","United States of America":"Estados Unidos","Vanuatu":"Vanuatu","France":"Francia","Portugal":"Portugal","Spain":"España","Netherlands":"Países Bajos","Germany":"Alemania","Belgium":"Bélgica","Switzerland":"Suiza","Mexico":"México","Puerto Rico":"Puerto Rico","Uruguay":"Uruguay","Bahamas":"Bahamas","Czechia":"Rep. Checa","Greece":"Grecia","New Zealand":"Nueva Zelanda","Chile":"Chile","Brazil":"Brasil" };
+const VISITED = ["Argentina","Italy","United States of America","Vanuatu","France","Portugal","Spain","Netherlands","Germany","Belgium","Switzerland","Ireland","Austria","Mexico","Bahamas","Puerto Rico","Uruguay","Czechia","Greece","New Zealand","Chile","Brazil"];
+const VIS_ES = { "Argentina":"Argentina","Italy":"Italia","United States of America":"Estados Unidos","Vanuatu":"Vanuatu","France":"Francia","Portugal":"Portugal","Spain":"España","Netherlands":"Países Bajos","Germany":"Alemania","Belgium":"Bélgica","Ireland":"Irlanda","Austria":"Austria","Switzerland":"Suiza","Mexico":"México","Puerto Rico":"Puerto Rico","Uruguay":"Uruguay","Bahamas":"Bahamas","Czechia":"Rep. Checa","Greece":"Grecia","New Zealand":"Nueva Zelanda","Chile":"Chile","Brazil":"Brasil" };
 const VIS_EN = { "United States of America":"USA","Czechia":"Czechia" };
 // point [lon,lat] and label placement: [dx,dy,anchor] in map units, or "L"/"R" for the Europe columns
 const VIS_POS = {
   "Argentina":[-67,-45,24,8,"start"], "Chile":[-71,-31,-9,4,"end"], "Brazil":[-52,-10,0,4,"middle"],
   "United States of America":[-99,39,0,4,"middle"], "Mexico":[-102,23.5,-9,4,"end"], "Puerto Rico":[-66.5,18.2,8,12,"start"], "Uruguay":[-56,-32.8,10,6,"start"], "Bahamas":[-77.4,24.3,9,-3,"start"],
   "New Zealand":[172.5,-41.5,-10,4,"end"], "Vanuatu":[167.6,-16,-10,4,"end"],
-  "Netherlands":[5.4,52.2,"L",0], "Belgium":[4.6,50.6,"L",1], "France":[2.4,46.6,"L",2], "Spain":[-3.7,40.3,"L",3], "Portugal":[-8.1,39.6,"L",4],
-  "Germany":[10.4,51.1,"R",0], "Czechia":[15.4,49.8,"R",1], "Switzerland":[8.2,46.8,"R",2], "Italy":[12.6,42.8,"R",3], "Greece":[22,39.3,"R",4]
+  "Ireland":[-8,53.2,"L",0], "Netherlands":[5.4,52.2,"L",1], "Belgium":[4.6,50.6,"L",2], "France":[2.4,46.6,"L",3], "Spain":[-3.7,40.3,"L",4], "Portugal":[-8.1,39.6,"L",5],
+  "Germany":[10.4,51.1,"R",0], "Czechia":[15.4,49.8,"R",1], "Austria":[14.5,47.6,"R",2], "Switzerland":[8.2,46.8,"R",3], "Italy":[12.6,42.8,"R",4], "Greece":[22,39.3,"R",5]
 };
 const PLACES = [
   { name:"Viedma", country:"Argentina", lat:-40.81, lon:-62.99, kind:"home", note:"Home, on the Río Negro near the Atlantic coast", note_es:"Mi hogar, a orillas del río Negro cerca de la costa atlántica" },
@@ -1205,7 +1205,7 @@ let renderPlaces = () => {};
       const [x,y] = proj([v[0], v[1]]);
       let lx, ly, anchor;
       if (v[2] === "L" || v[2] === "R") {
-        const col = v[2] === "L" ? -1 : 1; lx = eu[0] + col*62; ly = eu[1] - 40 + v[3]*15; anchor = col < 0 ? "end" : "start";
+        const col = v[2] === "L" ? -1 : 1; lx = eu[0] + col*62; ly = eu[1] - 46 + v[3]*15; anchor = col < 0 ? "end" : "start";
         lab.append("path").attr("class","cline").attr("d", `M${x},${y}L${lx - col*3},${ly-3}`);
       } else { lx = x + v[2]; ly = y + v[3]; anchor = v[4]; }
       lab.append("circle").attr("class","cdot").attr("cx",x).attr("cy",y).attr("r",2.2);
